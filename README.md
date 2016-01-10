@@ -43,10 +43,10 @@ Pseudocode:
 (For each line in the [input_file]):
 
 1. If the word was seen in training data (present in the count_xy dictionary), for each of the possible labels for the word:
-  1 Calculate emission = count_xy[word][label] / float(count_y[label]
-  2 Calculate transition = trigram_counts[trigram])/float(bigram_counts[bigram] Note: y<sub>i-2</sub> = *, y<sub>i-1</sub> = * for the first round
-  3 Set probability = emission x transition
-  1.4 Update max(probability) and arg max if needed.
+  1. Calculate emission = count_xy[word][label] / float(count_y[label]
+  2. Calculate transition = trigram_counts[trigram])/float(bigram_counts[bigram] Note: y<sub>i-2</sub> = *, y<sub>i-1</sub> = * for the first round
+  3. Set probability = emission x transition
+  4. Update max(probability) and arg max if needed.
 2 If the word was not seen in the training data:
   1. Calculate emission = count xy[_RARE_][label] / float(count y[label].
   2. Calculate q(y<sub>i</sub>|y<sub>i-1</sub>, y<sub>i-2</sub>) = trigram counts[trigram])/float(bigram counts[bigram]. Note: y<sub>i-2</sub> = ∗, y<sub>i-1</sub> = ∗ for the first round
@@ -57,5 +57,6 @@ Pseudocode:
 4. Update y<sub>i-2</sub>, y<sub>i-1</sub>.
 
 **Evaluation**
+
 Prof. Michael Collins provided an evaluation script to verify the output of your Viterbi implementation.
 Usage: python eval_ne_tagger.py ner_dev.key [output_file]
