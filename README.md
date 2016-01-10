@@ -44,16 +44,27 @@ Pseudocode:
 (For each line in the [input_file]):
 
 1. If the word was seen in training data (present in the count_xy dictionary), for each of the possible labels for the word:
+
 1.1 Calculate emission = count_xy[word][label] / float(count_y[label]
+
 1.2 Calculate transition = trigram_counts[trigram])/float(bigram_counts[bigram] Note: y<sub>i-2</sub> = *, y<sub>i-1</sub> = * for the first round
+
 1.3 Set probability = emission x transition
+
 1.4 Update max(probability) and arg max if needed.
+
 2 If the word was not seen in the training data:
+
 2.1 Calculate emission = count xy[_RARE_][label] / float(count y[label].
+
 2.2 Calculate q(y<sub>i</sub>|y<sub>i-1</sub>, y<sub>i-2</sub>) = trigram counts[trigram])/float(bigram counts[bigram]. Note: y<sub>i-2</sub> = ∗, y<sub>i-1</sub> = ∗ for the first round
-2.3 Set probability = emission ×q(y<sub>i</sub>|y<sub>i-1</sub>, y<sub>i-2</sub>).
+
+2.3 Set probability = emission × transition
+
 2.4 Update max(probability) if needed, arg max = _RARE_
+
 3. Write arg max and log(max(probability)) to output file.
+
 4. Update y<sub>i-2</sub>, y<sub>i-1</sub>.
 
 **Evaluation**
