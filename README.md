@@ -34,23 +34,24 @@ Python code: transition_counts.py
 Pseudocode:
 
 1. Iterate through each line in the n-gram_counts file
-  1.1 If the line contains ’2-GRAM’ add an item to the bigram_counts dictionary using the bigram (two space-separated labels following the tag type '2-gram') as key, count as value. This dictionary will contain Count(y<sub>i-2</sub>,y<sub>i-1</sub>).
-  1.2 If the line contains ’3-GRAM’, add an item to the trigram_counts dictionary using the trigram as key, count as value. This dictionary will contain Count(y<sub>i-2</sub>, y<sub>i-1</sub>, y<sub>i</sub>).
+  1. If the line contains ’2-GRAM’ add an item to the bigram_counts dictionary using the bigram (two space-separated labels following the tag type '2-gram') as key, count as value. This dictionary will contain Count(y<sub>i-2</sub>,y<sub>i-1</sub>).
+  2. If the line contains ’3-GRAM’, add an item to the trigram_counts dictionary using the trigram as key, count as value. This dictionary will contain Count(y<sub>i-2</sub>, y<sub>i-1</sub>, y<sub>i</sub>).
 2. Return dictionaries of bigram and trigram counts.
 
 **Step 3. Viterbi**
 
 (For each line in the [input_file]):
+
 1. If the word was seen in training data (present in the count_xy dictionary), for each of the possible labels for the word:
-  1.1 Calculate emission = count_xy[word][label] / float(count_y[label]
-  1.2 Calculate transition = trigram_counts[trigram])/float(bigram_counts[bigram] Note: y<sub>i-2</sub> = *, y<sub>i-1</sub> = * for the first round
-  1.3 Set probability = emission x transition
+  1 Calculate emission = count_xy[word][label] / float(count_y[label]
+  2 Calculate transition = trigram_counts[trigram])/float(bigram_counts[bigram] Note: y<sub>i-2</sub> = *, y<sub>i-1</sub> = * for the first round
+  3 Set probability = emission x transition
   1.4 Update max(probability) and arg max if needed.
 2 If the word was not seen in the training data:
-  2.1 Calculate emission = count xy[_RARE_][label] / float(count y[label].
-  2.2 Calculate q(y<sub>i</sub>|y<sub>i-1</sub>, y<sub>i-2</sub>) = trigram counts[trigram])/float(bigram counts[bigram]. Note: y<sub>i-2</sub> = ∗, y<sub>i-1</sub> = ∗ for the first round
-  2.3 Set probability = emission × transition
-  2.4 Update max(probability) if needed, arg max = _RARE_
+  1. Calculate emission = count xy[_RARE_][label] / float(count y[label].
+  2. Calculate q(y<sub>i</sub>|y<sub>i-1</sub>, y<sub>i-2</sub>) = trigram counts[trigram])/float(bigram counts[bigram]. Note: y<sub>i-2</sub> = ∗, y<sub>i-1</sub> = ∗ for the first round
+  3. Set probability = emission × transition
+  4. Update max(probability) if needed, arg max = _RARE_
 3. Write arg max and log(max(probability)) to output file.
 4. Update y<sub>i-2</sub>, y<sub>i-1</sub>.
 4. Update y<sub>i-2</sub>, y<sub>i-1</sub>.
